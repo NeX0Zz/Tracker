@@ -187,7 +187,7 @@ final class TrackerViewController: UIViewController {
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - UISearchBarDelegate
 
 extension TrackerViewController: UISearchBarDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
