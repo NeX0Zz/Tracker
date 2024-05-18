@@ -12,7 +12,7 @@ final class RegularlyViewCell: UITableViewCell {
     
     private lazy var switchDay: UISwitch = {
         let switchDay = UISwitch()
-        switchDay.onTintColor = UIColor.bluee
+        switchDay.onTintColor = .bluee
         switchDay.addTarget(self, action: #selector(switchTapped), for: .touchUpInside)
         return switchDay
     }()
@@ -20,7 +20,7 @@ final class RegularlyViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = .systemBackground
+        backgroundColor = .backgroundDay
         clipsToBounds = true
         
         contentView.addSubview(dayOfWeek)
@@ -43,7 +43,7 @@ final class RegularlyViewCell: UITableViewCell {
     }
     
     @objc private func switchTapped(_ sender: UISwitch) {
-        self.selectedDay = sender.isOn
+        selectedDay = sender.isOn
     }
     
     func update(with title: String) {

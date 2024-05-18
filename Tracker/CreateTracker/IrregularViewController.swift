@@ -11,7 +11,7 @@ final class IrregularViewController: UIViewController {
     
     let irregularCellReuseIdentifier = "IrregularEventTableViewCell"
     var trackerViewController: TrackersActions?
-    
+   
     private lazy var header: UILabel = {
         let header = UILabel()
         header.text = "Новое нерегулярное событие"
@@ -135,10 +135,8 @@ final class IrregularViewController: UIViewController {
     }
     
     @objc private func createButtonTapped() {
-        guard let text = addTextField.text, !text.isEmpty else {
-            return
-        }
-        let newEvent = Tracker(name: text, color: .bluee, emoji: "🦾", timetable: WeekDay.allCases)
+        guard let text = addTextField.text, !text.isEmpty else { return }
+        let newEvent = Tracker(name: text, color: .bluee, emoji: "🦾", timetable: [TrackerViewController().getDate()])
         trackerViewController?.appendTracker(tracker: newEvent)
         print(newEvent)
         trackerViewController?.reload()

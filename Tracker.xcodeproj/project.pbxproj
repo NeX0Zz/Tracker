@@ -73,9 +73,9 @@
 			isa = PBXGroup;
 			children = (
 				E628810D2BED0708006EC4E9 /* CreateTrackerViewController.swift */,
-				E62881032BECD0C8006EC4E9 /* IrregularViewController.swift */,
 				E628810F2BED0737006EC4E9 /* CreateTrackerViewCell.swift */,
 				E62881012BECCDD3006EC4E9 /* AddTrackerViewController.swift */,
+				E62881032BECD0C8006EC4E9 /* IrregularViewController.swift */,
 				E62881062BECD958006EC4E9 /* IrregularViewCell.swift */,
 				E62881092BED04F4006EC4E9 /* RegularlyViewController.swift */,
 				E628810B2BED0563006EC4E9 /* RegularlyViewCell.swift */,

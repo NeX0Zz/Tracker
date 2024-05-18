@@ -6,6 +6,7 @@ final class CreateTrackerViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
         return label
     }()
     
@@ -41,6 +42,19 @@ final class CreateTrackerViewCell: UITableViewCell {
     }
     
     func update(with title: String) {
-        titleLabel.text = title
+        let attributedText = NSMutableAttributedString(string: title)
+        
+        if let rangeOfNewLine = title.range(of: "\n") {
+            let rangeOfFirstLine = NSRange(title.startIndex..<rangeOfNewLine.lowerBound, in: title)
+            let rangeOfSecondLine = NSRange(rangeOfNewLine.upperBound..<title.endIndex, in: title)
+            
+            attributedText.addAttribute(.foregroundColor, value: UIColor.blackDay, range: rangeOfFirstLine)
+            attributedText.addAttribute(.foregroundColor, value: UIColor.grayy, range: rangeOfSecondLine)
+        } else {
+            attributedText.addAttribute(.foregroundColor, value: UIColor.blackDay, range: NSRange(title.startIndex..<title.endIndex, in: title))
+        }
+        
+        titleLabel.attributedText = attributedText
+
     }
 }

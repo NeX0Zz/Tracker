@@ -9,7 +9,8 @@ final class CreateTrackerViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var selectedDays: [WeekDay] = []
+    private var selectedCategory: TrackerCategory?
+    var selectedDays: [WeekDay] = []
     
     private let header: UILabel = {
         let label = UILabel()
@@ -76,6 +77,8 @@ final class CreateTrackerViewController: UIViewController {
         return button
     }()
     
+    
+    
     // MARK: - Override Methods
     
     override func viewDidLoad() {
@@ -136,11 +139,14 @@ final class CreateTrackerViewController: UIViewController {
     }
     
     @objc private func createButtonTapped() {
-        guard let text = addTextField.text, !text.isEmpty else { return }
-        let newTracker = Tracker(name: text, color: .green, emoji: "👂🏿", timetable: self.selectedDays)
+        if !selectedDays.isEmpty {
+            createButton.isEnabled = false
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
+        guard let text = addTextField.text, !text.isEmpty  else { return }
+        let newTracker = Tracker(name: text, color: .bluee, emoji: "👂🏿", timetable: selectedDays)
         trackerViewController?.appendTracker(tracker: newTracker)
         trackerViewController?.reload()
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -150,6 +156,7 @@ extension CreateTrackerViewController: SelectedDays {
     func save(indicies: [Int]) {
         for index in indicies {
             self.selectedDays.append(WeekDay.allCases[index])
+            self.trackersTableView.reloadData()
         }
     }
 }
@@ -164,10 +171,29 @@ extension CreateTrackerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? CreateTrackerViewCell else { return UITableViewCell() }
         if indexPath.row == 0 {
-            cell.update(with: "Категория")
+            var title = "Категория"
+            if let selectedCategory = selectedCategory {
+                print(selectedCategory)
+                title += "\n" + selectedCategory.header
+            }
+            cell.update(with: title)
         } else if indexPath.row == 1 {
-            cell.update(with: "Расписание")
+            var subtitle = ""
+            
+            if !selectedDays.isEmpty {
+                if selectedDays.count == 7 {
+                    subtitle = "Каждый день"
+                } else {
+                    subtitle = selectedDays.map { $0.shortDaysName }.joined(separator: ", ")
+                }
+            }
+            if !subtitle.isEmpty {
+                cell.update(with: !subtitle.isEmpty ? "Расписание\n" + subtitle : "Расписание")
+            } else {
+                cell.update(with: "Расписание")
+            }
         }
+        
         return cell
     }
 }

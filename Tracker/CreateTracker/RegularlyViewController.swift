@@ -10,7 +10,6 @@ final class RegularlyViewController: UIViewController {
     
     let regularlyCellReuseIdentifier = "regularlyTableViewCell"
     var createTrackerViewController: SelectedDays?
-    var trackerViewController: TrackersActions?
     
     //MARK: - Private Properties
     

@@ -3,8 +3,8 @@ import UIKit
 final class TrackerViewController: UIViewController {
     
     // MARK: - Properties
-    
-    var selectedDate: Int?
+
+    var selectedDate: Date?
     
     // MARK: - Private Properties
     
@@ -47,6 +47,7 @@ final class TrackerViewController: UIViewController {
         return search
     }()
     
+    
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.date = Date()
@@ -54,13 +55,15 @@ final class TrackerViewController: UIViewController {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.locale = Locale(identifier: "ru_Ru")
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        datePicker.layer.cornerRadius = 0.3
+        datePicker.clipsToBounds = true
         return datePicker
     }()
     
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Что будем отслеживать?"
-        label.font = UIFont(name: "SF Pro", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         return label
     }()
     
@@ -80,9 +83,9 @@ final class TrackerViewController: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        selectCurrentDay()
         view.backgroundColor = .systemBackground
         setSearchBar.searchBar.delegate = self
-        //        searchBar.delegate = self
         navigationController?.navigationBar.prefersLargeTitles = true
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -133,6 +136,32 @@ final class TrackerViewController: UIViewController {
         ])
     }
     
+    var selectedDatee: Int?
+    
+    func getDate() -> WeekDay {
+        selectCurrentDay()
+        let sellect = selectedDatee
+        print(sellect)
+        switch sellect {
+        case 2:
+            return WeekDay.monday
+        case 3:
+            return WeekDay.tuesday
+        case 4:
+            return WeekDay.wednesday
+        case 5:
+            return WeekDay.thursday
+        case 6:
+            return WeekDay.friday
+        case 7:
+            return WeekDay.saturday
+        case 1:
+            return WeekDay.sunday
+        default:
+            return WeekDay.sunday
+        }
+    }
+    
     private func isTrackerCompletedToday(id: UUID) -> Bool {
         completedTrackers.contains { trackerRecord in
             isTrackerRecord(trackerRecord: trackerRecord, id: id)
@@ -144,10 +173,10 @@ final class TrackerViewController: UIViewController {
         return trackerRecord.id == id && isSameDay
     }
     
-    private func selectCurrentDay() {
+     func selectCurrentDay() {
         let calendar = Calendar.current
         let filterWeekday = calendar.component(.weekday, from: datePicker.date)
-        self.selectedDate = filterWeekday
+        self.selectedDatee = filterWeekday
     }
     
     private func show(){
@@ -160,14 +189,14 @@ final class TrackerViewController: UIViewController {
         }
     }
     
-    private func filterTrackers() {
+    func filterTrackers() {
         visibleCategories = filterCategories()
         show()
         label.text = "Ничего не найдено"
         imageView.image = UIImage(named: "empty")
         collectionView.reloadData()
     }
-    
+        
     private func filterCategories() -> [TrackerCategory] {
         return categories.map { category in
             let filteredTrackers = category.trackerMass.filter { satisfiesFilters(tracker: $0) }
@@ -177,7 +206,7 @@ final class TrackerViewController: UIViewController {
     
     private func satisfiesFilters(tracker: Tracker) -> Bool {
         let scheduleContains = tracker.timetable?.contains { day in
-            guard let currentDay = selectedDate else {
+            guard let currentDay = selectedDatee else {
                 return true
             }
             return day.rawValue == currentDay
@@ -306,5 +335,3 @@ extension TrackerViewController: TrackersActions {
         collectionView.reloadData()
     }
 }
-
-
