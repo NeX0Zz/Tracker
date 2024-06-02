@@ -76,6 +76,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         
         let image = completedToday ? (UIImage(named: "Tracker Done")?.withTintColor(trackerView.backgroundColor ?? .white)) : (UIImage(named: "Plus")?.withTintColor(trackerView.backgroundColor ?? .white))
         doneTrackerButton.setImage(image, for: .normal)
+        doneTrackerButton.tintColor = trackerView.backgroundColor
     }
     
     //MARK: - Override Methods

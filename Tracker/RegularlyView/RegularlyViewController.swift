@@ -53,7 +53,7 @@ final class RegularlyViewController: UIViewController {
     //MARK: - Private Methods
     
     private func setup(){
-        [header,regularlyTableView,doneButton].forEach {
+        [header,regularlyTableView, doneButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
