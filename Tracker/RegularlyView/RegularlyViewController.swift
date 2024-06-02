@@ -10,7 +10,6 @@ final class RegularlyViewController: UIViewController {
     
     let regularlyCellReuseIdentifier = "regularlyTableViewCell"
     var createTrackerViewController: SelectedDays?
-    var trackerViewController: TrackersActions?
     
     //MARK: - Private Properties
     
@@ -54,7 +53,7 @@ final class RegularlyViewController: UIViewController {
     //MARK: - Private Methods
     
     private func setup(){
-        [header,regularlyTableView,doneButton].forEach {
+        [header,regularlyTableView, doneButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
