@@ -16,8 +16,7 @@ final class TrackerCategoryStore: NSObject {
             fetchRequest: fetchRequest,
             managedObjectContext: context,
             sectionNameKeyPath: nil,
-            cacheName: "TrackerCategoryCache"
-        )
+            cacheName: "TrackerCategoryCache")
         try? controller.performFetch()
         return controller
     }()

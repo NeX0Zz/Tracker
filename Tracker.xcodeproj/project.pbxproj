@@ -21,6 +21,7 @@
 		E63B58902BE38EDA00E7E31F /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63B588F2BE38EDA00E7E31F /* TrackerViewController.swift */; };
 		E63B58952BE38EDC00E7E31F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E63B58942BE38EDC00E7E31F /* Assets.xcassets */; };
 		E63B58982BE38EDC00E7E31F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E63B58972BE38EDC00E7E31F /* Base */; };
+		E64791422C1B065700195D7C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64791412C1B065700195D7C /* OnboardingViewController.swift */; };
 		E65519DA2C0B3B4D00BE6054 /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65519D92C0B3B4D00BE6054 /* UIColorMarshalling.swift */; };
 		E65F56652BFF853300F1E6A4 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65F56642BFF853300F1E6A4 /* UIColor + Extension.swift */; };
 		E69F78992C0493BB0078E70A /* TrackersEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E69F78972C0493BB0078E70A /* TrackersEntity.xcdatamodeld */; };
@@ -53,6 +54,7 @@
 		E63B58942BE38EDC00E7E31F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E63B58972BE38EDC00E7E31F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E63B58992BE38EDC00E7E31F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E64791412C1B065700195D7C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		E65519D92C0B3B4D00BE6054 /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
 		E65F56642BFF853300F1E6A4 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		E69F78982C0493BB0078E70A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -141,11 +143,20 @@
 				E65519D62C0B279900BE6054 /* RegularlyView */,
 				E65519D82C0B283700BE6054 /* Extension */,
 				E63B58942BE38EDC00E7E31F /* Assets.xcassets */,
+				E64791432C1B073000195D7C /* Onboarding */,
 				E69F78972C0493BB0078E70A /* TrackersEntity.xcdatamodeld */,
 				E63B58962BE38EDC00E7E31F /* LaunchScreen.storyboard */,
 				E63B58992BE38EDC00E7E31F /* Info.plist */,
 			);
 			path = Tracker;
+			sourceTree = "<group>";
+		};
+		E64791432C1B073000195D7C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E64791412C1B065700195D7C /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		E65519D42C0B274B00BE6054 /* Domain */ = {
@@ -287,6 +298,7 @@
 				E69F78992C0493BB0078E70A /* TrackersEntity.xcdatamodeld in Sources */,
 				E6D3CDE82C070D5800D77A53 /* TrackerCategoryStore.swift in Sources */,
 				E62B38232BE5080E00E73DF2 /* TabBarViewController.swift in Sources */,
+				E64791422C1B065700195D7C /* OnboardingViewController.swift in Sources */,
 				E62881102BED0737006EC4E9 /* CreateTrackerViewCell.swift in Sources */,
 				E6CAFCC02BFF46BC00DEB30E /* ColorHeaderView.swift in Sources */,
 			);

@@ -121,7 +121,6 @@ final class TrackerViewController: UIViewController {
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         selectCurrentDay()
- //       getCurrentWeekday()
         filterTrackers()
     }
     
@@ -132,14 +131,6 @@ final class TrackerViewController: UIViewController {
         imageView.image = UIImage(named: "empty")
         collectionView.reloadData()
     }
-    
-//    private func getCurrentWeekday() -> Day {
-//        let calendar = Calendar.current
-//        let weekday = calendar.component(.weekday, from: datePicker.date)
-//        let currentWeekday = Day.getDayFromNumber(number: weekday)
-//        print(currentWeekday)
-//        return currentWeekday
-//    }
     
     func selectCurrentDay() {
         let calendar = Calendar.current

@@ -26,10 +26,8 @@ final class TrackerRecordStore: NSObject {
     weak var delegate: TrackerRecordStoreDelegate?
     
     var trackerRecords: [TrackerRecord] {
-        guard
-            let objects = self.fetchedResultsController.fetchedObjects,
-            let records = try? objects.map({ try self.record(from: $0)})
-        else { return [] }
+        guard let objects = self.fetchedResultsController.fetchedObjects,
+              let records = try? objects.map({ try self.record(from: $0)}) else { return [] }
         return records
     }
     

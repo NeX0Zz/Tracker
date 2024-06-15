@@ -18,13 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TrackersEntity")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
                 print("Unresolved error \(error)")
             } else {
-                print("DB url - ", storeDescription.url!.absoluteString)
+                print("On appDelegate DB url - ", storeDescription.url!.absoluteString)
             }
-        })
+        }
         return container
     }()
 
