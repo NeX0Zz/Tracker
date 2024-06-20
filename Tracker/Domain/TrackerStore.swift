@@ -24,7 +24,7 @@ final class TrackerStore: NSObject {
     }()
     
     weak var delegate: TrackerStoreDelegate?
-    
+
     var trackers: [Tracker] {
         guard let objects = fetchedResultsController.fetchedObjects else { return [] }
         return try! objects.compactMap { try tracker(from: $0) }
@@ -81,3 +81,4 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
         delegate?.store()
     }
 }
+

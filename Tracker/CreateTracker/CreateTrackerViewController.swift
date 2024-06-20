@@ -15,6 +15,7 @@ final class CreateTrackerViewController: UIViewController {
     private var selectedColor: UIColor?
     private var selectedColorIndex: Int?
     private var selectedCategory: TrackerCategory?
+    private let addCategoryViewController = CategoryViewController()
     var selectedDays: [WeekDay] = []
     private let colors: [UIColor] = [.ypColorSelection1, .ypColorSelection2, .ypColorSelection3,
         .ypColorSelection4, .ypColorSelection5, .ypColorSelection6,
@@ -204,10 +205,12 @@ final class CreateTrackerViewController: UIViewController {
         }
         guard let text = addTextField.text, !text.isEmpty,
               let emoji = selectedEmoji,
-              let color = selectedColor
+              let color = selectedColor,
+              let selectedCategory = selectedCategory
         else { return }
         let newTracker = Tracker(id: UUID(), name: text, color: color, emoji: emoji, timetable: selectedDays)
-        trackerViewController?.appendTracker(tracker: newTracker)
+        trackerViewController?.appendTracker(tracker: newTracker, category: selectedCategory.header)
+        addCategoryViewController.viewModel.addTrackerToCategory(to: selectedCategory, tracker: newTracker)
         trackerViewController?.reload()
     }
 }
@@ -272,9 +275,15 @@ extension CreateTrackerViewController: UITableViewDelegate {
             let regularlyViewController = RegularlyViewController()
             regularlyViewController.createTrackerViewController = self
             present(regularlyViewController, animated: true, completion: nil)
-        }
-        trackersTableView.deselectRow(at: indexPath, animated: true)
-    }
+            
+            trackersTableView.deselectRow(at: indexPath, animated: true)
+        } else if indexPath.row == 0 {
+            addCategoryViewController.viewModel.$selectedCategory.bind { [weak self] categoryName in
+                self?.selectedCategory = categoryName
+                self?.trackersTableView.reloadData()
+            }
+            present(addCategoryViewController, animated: true, completion: nil)
+        }}
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let separatorInset: CGFloat = 16
@@ -307,7 +316,9 @@ extension CreateTrackerViewController: UITextFieldDelegate {
         return true
     }
 }
+
 // MARK: - UICollectionViewDataSource
+
 extension CreateTrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 18

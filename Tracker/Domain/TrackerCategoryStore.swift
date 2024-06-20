@@ -6,6 +6,7 @@ protocol TrackerCategoryStoreDelegate: AnyObject {
 }
 
 final class TrackerCategoryStore: NSObject {
+    static let shared = TrackerCategoryStore()
     private let context: NSManagedObjectContext
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
         let fetchRequest = TrackerCategoryCoreData.fetchRequest()
@@ -46,30 +47,24 @@ final class TrackerCategoryStore: NSObject {
         super.init()
         fetchedResultsController.delegate = self
     }
-    
+
     func addNewCategory(_ category: TrackerCategory) throws {
         let trackerCategoryCoreData = TrackerCategoryCoreData(context: context)
         trackerCategoryCoreData.header = category.header
         trackerCategoryCoreData.trackers = category.trackerMass.compactMap {
-            let trackerCD = TrackerCoreData(context: self.context)
-            trackerCD.id = $0.id
-            return trackerCD
+            $0.id
         }
         try context.save()
     }
     
-    func addTrackerToCategory(to header: String?, tracker: Tracker) throws {
-        guard let fromDb = try fetchTrackerCategory(with: header) else {
-            throw TrackerError.defaultError
+    func addTrackerToCategory(to header: TrackerCategory?, tracker: Tracker) throws {
+        guard let fromDb = try self.fetchTrackerCategory(with: header) else {
+            fatalError()
         }
         fromDb.trackers = trackerCategories.first {
-            $0.header == header
-        }?.trackerMass
-            .compactMap {
-                let trackerCD = TrackerCoreData(context: context)
-                trackerCD.id = $0.id
-                return trackerCD
-            }
+            $0.header == fromDb.header
+        }?.trackerMass.map { $0.id }
+        fromDb.trackers?.append(tracker.id)
         try context.save()
     }
     
@@ -81,18 +76,15 @@ final class TrackerCategoryStore: NSObject {
         }
         return TrackerCategory(header: header, trackerMass: trackerStore
             .trackers
-            .filter { tracker in
-                trackers.contains(where: { trackerCD in
-                    tracker.id == trackerCD.id
-                })
-            }
-        )
+            .filter { trackers.contains($0.id) })
     }
     
-    func fetchTrackerCategory(with header: String?) throws -> TrackerCategoryCoreData? {
-        guard let header = header else { return nil }
+    func fetchTrackerCategory(with header: TrackerCategory?) throws -> TrackerCategoryCoreData? {
+        guard let header = header else { fatalError() }
         let fetchRequest: NSFetchRequest<TrackerCategoryCoreData> = TrackerCategoryCoreData.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "header == %@", header as CVarArg)
+        fetchRequest.predicate = NSPredicate(
+            format: "header == %@",
+            header.header as CVarArg)
         let result = try context.fetch(fetchRequest)
         return result.first
     }
@@ -117,3 +109,5 @@ extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {
         delegate?.storeCategory()
     }
 }
+
+

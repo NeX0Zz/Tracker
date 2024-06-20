@@ -22,6 +22,11 @@
 		E63B58952BE38EDC00E7E31F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E63B58942BE38EDC00E7E31F /* Assets.xcassets */; };
 		E63B58982BE38EDC00E7E31F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E63B58972BE38EDC00E7E31F /* Base */; };
 		E64791422C1B065700195D7C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64791412C1B065700195D7C /* OnboardingViewController.swift */; };
+		E6508B9D2C21B5A3008FE5EE /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6508B9C2C21B5A3008FE5EE /* CategoryViewController.swift */; };
+		E6508B9F2C21B5C3008FE5EE /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6508B9E2C21B5C3008FE5EE /* CreateCategoryViewController.swift */; };
+		E6508BA12C21B5D2008FE5EE /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6508BA02C21B5D2008FE5EE /* CategoryCell.swift */; };
+		E6508BA32C21B5E7008FE5EE /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6508BA22C21B5E7008FE5EE /* CategoryViewModel.swift */; };
+		E6508BA52C21B602008FE5EE /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6508BA42C21B602008FE5EE /* Observable.swift */; };
 		E65519DA2C0B3B4D00BE6054 /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65519D92C0B3B4D00BE6054 /* UIColorMarshalling.swift */; };
 		E65F56652BFF853300F1E6A4 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65F56642BFF853300F1E6A4 /* UIColor + Extension.swift */; };
 		E69F78992C0493BB0078E70A /* TrackersEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E69F78972C0493BB0078E70A /* TrackersEntity.xcdatamodeld */; };
@@ -55,6 +60,11 @@
 		E63B58972BE38EDC00E7E31F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E63B58992BE38EDC00E7E31F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E64791412C1B065700195D7C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		E6508B9C2C21B5A3008FE5EE /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		E6508B9E2C21B5C3008FE5EE /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
+		E6508BA02C21B5D2008FE5EE /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		E6508BA22C21B5E7008FE5EE /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		E6508BA42C21B602008FE5EE /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E65519D92C0B3B4D00BE6054 /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
 		E65F56642BFF853300F1E6A4 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		E69F78982C0493BB0078E70A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -136,16 +146,17 @@
 			children = (
 				E62B38212BE5058400E73DF2 /* Aplication */,
 				E62881052BECD0D5006EC4E9 /* Tracker */,
-				E62881082BED03D1006EC4E9 /* CreateTracker */,
 				E65519D72C0B281A00BE6054 /* StatisticView */,
 				E65519D42C0B274B00BE6054 /* Domain */,
 				E65519D52C0B277200BE6054 /* IrregularVIew */,
 				E65519D62C0B279900BE6054 /* RegularlyView */,
 				E65519D82C0B283700BE6054 /* Extension */,
-				E63B58942BE38EDC00E7E31F /* Assets.xcassets */,
 				E64791432C1B073000195D7C /* Onboarding */,
+				E62881082BED03D1006EC4E9 /* CreateTracker */,
+				E6508BA62C21B670008FE5EE /* Category */,
 				E69F78972C0493BB0078E70A /* TrackersEntity.xcdatamodeld */,
 				E63B58962BE38EDC00E7E31F /* LaunchScreen.storyboard */,
+				E63B58942BE38EDC00E7E31F /* Assets.xcassets */,
 				E63B58992BE38EDC00E7E31F /* Info.plist */,
 			);
 			path = Tracker;
@@ -157,6 +168,18 @@
 				E64791412C1B065700195D7C /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		E6508BA62C21B670008FE5EE /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				E6508B9C2C21B5A3008FE5EE /* CategoryViewController.swift */,
+				E6508BA22C21B5E7008FE5EE /* CategoryViewModel.swift */,
+				E6508B9E2C21B5C3008FE5EE /* CreateCategoryViewController.swift */,
+				E6508BA02C21B5D2008FE5EE /* CategoryCell.swift */,
+				E6508BA42C21B602008FE5EE /* Observable.swift */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		E65519D42C0B274B00BE6054 /* Domain */ = {
@@ -279,11 +302,13 @@
 				E62881072BECD958006EC4E9 /* IrregularViewCell.swift in Sources */,
 				E6B68AA22BE788CF0030216E /* TrackerStructures.swift in Sources */,
 				E628810A2BED04F4006EC4E9 /* RegularlyViewController.swift in Sources */,
+				E6508BA52C21B602008FE5EE /* Observable.swift in Sources */,
 				E6D3CDE62C070D4B00D77A53 /* TrackerRecordStore.swift in Sources */,
 				E6CAFCBC2BFF377F00DEB30E /* EmojiViewCollectionCell.swift in Sources */,
 				E63B58902BE38EDA00E7E31F /* TrackerViewController.swift in Sources */,
 				E6D42A832BEBB849009062B3 /* HeaderSectionView.swift in Sources */,
 				E6D3CDE42C070D3800D77A53 /* TrackerStore.swift in Sources */,
+				E6508B9F2C21B5C3008FE5EE /* CreateCategoryViewController.swift in Sources */,
 				E62881022BECCDD3006EC4E9 /* AddTrackerViewController.swift in Sources */,
 				E628810C2BED0563006EC4E9 /* RegularlyViewCell.swift in Sources */,
 				E63B588C2BE38EDA00E7E31F /* AppDelegate.swift in Sources */,
@@ -296,10 +321,13 @@
 				E63B588E2BE38EDA00E7E31F /* SceneDelegate.swift in Sources */,
 				E6CD1C2B2BE8008800F12354 /* TrackerCollectionViewCell.swift in Sources */,
 				E69F78992C0493BB0078E70A /* TrackersEntity.xcdatamodeld in Sources */,
+				E6508B9D2C21B5A3008FE5EE /* CategoryViewController.swift in Sources */,
 				E6D3CDE82C070D5800D77A53 /* TrackerCategoryStore.swift in Sources */,
 				E62B38232BE5080E00E73DF2 /* TabBarViewController.swift in Sources */,
+				E6508BA32C21B5E7008FE5EE /* CategoryViewModel.swift in Sources */,
 				E64791422C1B065700195D7C /* OnboardingViewController.swift in Sources */,
 				E62881102BED0737006EC4E9 /* CreateTrackerViewCell.swift in Sources */,
+				E6508BA12C21B5D2008FE5EE /* CategoryCell.swift in Sources */,
 				E6CAFCC02BFF46BC00DEB30E /* ColorHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

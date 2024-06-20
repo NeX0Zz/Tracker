@@ -1,7 +1,7 @@
 import UIKit
 
 protocol TrackersActions {
-    func appendTracker(tracker: Tracker)
+    func appendTracker(tracker: Tracker, category: String?)
     func reload()
 }
 
@@ -12,7 +12,9 @@ final class IrregularViewController: UIViewController {
     let irregularCellReuseIdentifier = "IrregularEventTableViewCell"
     var trackerViewController: TrackersActions?
     private var selectedColor: UIColor?
+    private var selectedCategory: TrackerCategory?
     private var selectedColorIndex: Int?
+    private let addCategoryViewController = CategoryViewController()
     private var selectedEmoji: String?
     private let colors: [UIColor] = [
         .ypColorSelection1, .ypColorSelection2, .ypColorSelection3,
@@ -201,11 +203,12 @@ final class IrregularViewController: UIViewController {
     @objc private func createButtonTapped() {
         guard let text = addTextField.text, !text.isEmpty,
               let emoji = selectedEmoji,
-              let color = selectedColor
+              let color = selectedColor,
+              let selectedCategory = selectedCategory
         else { return }
         let newEvent = Tracker(id: UUID(), name: text, color: color, emoji: emoji, timetable: [TrackerViewController().getDate()])
-        trackerViewController?.appendTracker(tracker: newEvent)
-        print(newEvent)
+        trackerViewController?.appendTracker(tracker: newEvent, category: selectedCategory.header)
+        addCategoryViewController.viewModel.addTrackerToCategory(to: selectedCategory, tracker: newEvent)
         trackerViewController?.reload()
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
@@ -219,7 +222,13 @@ extension IrregularViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let addCategoryViewController = CategoryViewController()
+        addCategoryViewController.viewModel.$selectedCategory.bind { [weak self] categoryName in
+            self?.selectedCategory = categoryName
+            self?.irregularTableView.reloadData()
+        }
         irregularTableView.deselectRow(at: indexPath, animated: true)
+        present(addCategoryViewController, animated: true, completion: nil)
     }
 }
 
@@ -252,8 +261,12 @@ extension IrregularViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: irregularCellReuseIdentifier, for: indexPath) as! IrregularViewCell
-        cell.titleLabel.text = "Категория"
-        return cell
+            var title = "Категория"
+            if let selectedCategory = selectedCategory {
+                title += "\n" + selectedCategory.header
+            }
+            cell.update(with: title)
+            return cell
     }
 }
 
@@ -381,4 +394,6 @@ extension IrregularViewController: UICollectionViewDelegate {
             cell?.layer.borderWidth = 0
         }
     }
+    
+    
 }

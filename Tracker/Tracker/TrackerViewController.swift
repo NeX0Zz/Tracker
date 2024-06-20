@@ -12,6 +12,7 @@ final class TrackerViewController: UIViewController {
     private var trackerStore = TrackerStore()
     private let trackerCategoryStore = TrackerCategoryStore()
     private var trackerRecordStore = TrackerRecordStore()
+    private(set) var categoryViewModel: CategoryViewModel = CategoryViewModel.shared
     private var categories: [TrackerCategory] = []
     private var visibleCategories: [TrackerCategory] = []
     private var trackers: [Tracker] = []
@@ -102,6 +103,7 @@ final class TrackerViewController: UIViewController {
         completedTrackers = trackerRecordStore.trackerRecords
         let category = TrackerCategory(header: "В школе", trackerMass: trackers)
         categories.append(category)
+        categories = categoryViewModel.categories
         show()
         filterTrackers()
     }
@@ -328,12 +330,24 @@ extension TrackerViewController: TrackerCellDelegate {
 // MARK: - TrackersActions
 
 extension TrackerViewController: TrackersActions {
-    func appendTracker(tracker: Tracker) {
-        trackerStore.addNewTracker(tracker)
-        categories = categories.map { category in
-            var updatedTrackers = category.trackerMass
-            updatedTrackers.append(tracker)
-            return TrackerCategory(header: category.header, trackerMass: updatedTrackers)
+    func appendTracker(tracker: Tracker, category: String?) {
+        guard let category = category else { return }
+        self.trackerStore.addNewTracker(tracker)
+        let foundCategory = self.categories.first { categories in
+            categories.header == category
+        }
+        if foundCategory != nil {
+            self.categories = self.categories.map { categories in
+                if (categories.header == category) {
+                    var updatedTrackers = categories.trackerMass
+                    updatedTrackers.append(tracker)
+                    return TrackerCategory(header: categories.header, trackerMass: updatedTrackers)
+                } else {
+                    return TrackerCategory(header: categories.header, trackerMass: categories.trackerMass)
+                }
+            }
+        } else {
+            self.categories.append(TrackerCategory(header: category, trackerMass: [tracker]))
         }
         filterTrackers()
     }
