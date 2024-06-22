@@ -29,8 +29,8 @@ final class CategoryCell: UITableViewCell {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             doneImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             doneImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-            doneImage.widthAnchor.constraint(equalToConstant: 24),
-            doneImage.heightAnchor.constraint(equalToConstant: 24)
+            doneImage.widthAnchor.constraint(equalToConstant: 14),
+            doneImage.heightAnchor.constraint(equalToConstant: 14)
         ])
     }
     
@@ -44,5 +44,6 @@ final class CategoryCell: UITableViewCell {
     
     func done(with image: UIImage) {
         doneImage.image = image
+        
     }
 }

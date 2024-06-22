@@ -11,7 +11,6 @@ final class CreateCategoryViewController: UIViewController {
     
     private let header: UILabel = {
         let header = UILabel()
-        header.translatesAutoresizingMaskIntoConstraints = false
         header.text = "Новая категория"
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         header.textColor = .blackDay
@@ -20,7 +19,6 @@ final class CreateCategoryViewController: UIViewController {
     
     private let addCategoryName: UITextField = {
         let addCategoryName = UITextField()
-        addCategoryName.translatesAutoresizingMaskIntoConstraints = false
         addCategoryName.placeholder = "Введите название категории"
         addCategoryName.backgroundColor = .backgroundDay
         addCategoryName.layer.cornerRadius = 16
@@ -55,7 +53,6 @@ final class CreateCategoryViewController: UIViewController {
         doneButton.layer.cornerRadius = 16
         doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.isEnabled = false
         return doneButton
     }()
@@ -71,7 +68,7 @@ final class CreateCategoryViewController: UIViewController {
         [header, doneButton, addCategoryName].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
-            
+        }
             NSLayoutConstraint.activate([
                 header.topAnchor.constraint(equalTo: view.topAnchor, constant: 26),
                 header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -85,7 +82,6 @@ final class CreateCategoryViewController: UIViewController {
                 doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
                 doneButton.heightAnchor.constraint(equalToConstant: 60)
             ])
-        }
     }
     
     @objc private func doneButtonTapped() {
