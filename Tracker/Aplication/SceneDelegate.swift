@@ -6,11 +6,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = TabBarViewController()
-        self.window = window
-        self.window?.makeKeyAndVisible()
+        window = UIWindow(windowScene: scene as! UIWindowScene)
+        let defaults = UserDefaults.standard
+        let isFirstLaunch = !defaults.bool(forKey: "FirstLaunch")
+        if isFirstLaunch {
+            defaults.set(true, forKey: "FirstLaunch")
+            window?.rootViewController = OnboardingViewController()
+        } else {
+            window?.rootViewController = TabBarViewController()
+        }
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
