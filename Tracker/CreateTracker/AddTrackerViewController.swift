@@ -10,16 +10,14 @@ final class AddTrackerViewController: UIViewController {
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "Создание трекера"
+        label.text = NSLocalizedString("addTracker.title", comment: "")
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return label
     }()
     
     private lazy var regularlyButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("Привычка", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.setTitle(NSLocalizedString("addTracker.habbitButton.title", comment: ""), for: .normal)
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(regularlyButtonTapped), for: .touchUpInside)
@@ -28,14 +26,28 @@ final class AddTrackerViewController: UIViewController {
     
     private lazy var irregularButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setTitle("Нерегулярные события", for: .normal)
+        button.setTitle(NSLocalizedString("addTracker.irregularButton.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(irregularButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            irregularButton.backgroundColor = .white
+            irregularButton.setTitleColor(.black, for: .normal)
+            regularlyButton.setTitleColor(.black, for: .normal)
+            regularlyButton.backgroundColor = .white
+        } else {
+            irregularButton.backgroundColor = .black
+            irregularButton.setTitleColor(.white, for: .normal)
+            regularlyButton.setTitleColor(.white, for: .normal)
+            regularlyButton.backgroundColor = .black
+        }
+    }
     
     //MARK: - Override Methods
     
@@ -70,7 +82,7 @@ final class AddTrackerViewController: UIViewController {
     }
     
     @objc private func regularlyButtonTapped() {
-        let regularlyButton = CreateTrackerViewController()
+        let regularlyButton = CreateTrackerViewController(edit: false)
         regularlyButton.trackerViewController = self.trackerViewController
         present(regularlyButton, animated: true)
     }

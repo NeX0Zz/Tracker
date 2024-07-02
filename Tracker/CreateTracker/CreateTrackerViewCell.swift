@@ -13,7 +13,7 @@ final class CreateTrackerViewCell: UITableViewCell {
     private let chevronImage: UIImageView = {
         let chevronImage = UIImageView()
         chevronImage.image = UIImage(named: "chevron")
-        chevronImage.tintColor = .grayy
+        chevronImage.tintColor = .systemBackground
         chevronImage.translatesAutoresizingMaskIntoConstraints = false
         return chevronImage
     }()
@@ -30,6 +30,7 @@ final class CreateTrackerViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
             chevronImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             chevronImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             chevronImage.widthAnchor.constraint(equalToConstant: 24),

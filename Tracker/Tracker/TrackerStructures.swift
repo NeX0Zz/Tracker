@@ -11,6 +11,8 @@ struct Tracker {
     let color: UIColor
     let emoji: String
     let timetable: [WeekDay]?
+    let pinned: Bool
+    let colorIndex: Int
 }
 
 struct TrackerRecord {
@@ -31,19 +33,19 @@ enum WeekDay: Int, CaseIterable, Codable {
     var name: String {
         switch self {
         case .monday:
-            return "Понедельник"
+            return NSLocalizedString("weekDay.monday", comment: "")
         case .tuesday:
-            return "Вторник"
+            return NSLocalizedString("weekDay.tuesday", comment: "")
         case .wednesday:
-            return "Среда"
+            return NSLocalizedString("weekDay.wednesday", comment: "")
         case .thursday:
-            return "Четверг"
+            return NSLocalizedString("weekDay.thursday", comment: "")
         case .friday:
-            return "Пятница"
+            return NSLocalizedString("weekDay.friday", comment: "")
         case .saturday:
-            return "Суббота"
+            return NSLocalizedString("weekDay.saturday", comment: "")
         case .sunday:
-            return "Воскресенье"
+            return NSLocalizedString("weekDay.sunday", comment: "")
         }
     }
     

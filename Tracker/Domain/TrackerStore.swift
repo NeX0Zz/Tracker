@@ -72,7 +72,48 @@ final class TrackerStore: NSObject {
         else {
             throw NSError(domain: "TrackerStore", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid tracker data"])
         }
-        return Tracker(id: id, name: name, color: color, emoji: emoji, timetable: timetable.compactMap { WeekDay(rawValue: $0) })
+        return Tracker(id: id,
+                       name: name,
+                       color: color,
+                       emoji: emoji,
+                       timetable: timetable.compactMap({ WeekDay(rawValue: $0)}),
+                       pinned: trackerCoreData.pinned,
+                       colorIndex: Int(trackerCoreData.colorIndex))
+    }
+    
+    func fetchTracker(with tracker: Tracker?) throws -> TrackerCoreData? {
+        guard let tracker = tracker else { throw CustomError.coreDataError }
+        let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", tracker.id as CVarArg)
+        let result = try context.fetch(fetchRequest)
+        return result.first
+    }
+    
+    func pinTracker(_ tracker: Tracker?, value: Bool) throws {
+        let toPin = try fetchTracker(with: tracker)
+        guard let toPin = toPin else { return }
+        toPin.pinned = value
+        try context.save()
+    }
+    
+    func deleteTracker(_ tracker: Tracker?) throws {
+        let toDelete = try fetchTracker(with: tracker)
+        guard let toDelete = toDelete else { return }
+        context.delete(toDelete)
+        try context.save()
+    }
+    
+    func updateTracker(_ tracker: Tracker, oldTracker: Tracker?) throws {
+        let updated = try fetchTracker(with: oldTracker)
+        guard let updated = updated else { return }
+        updated.name = tracker.name
+        updated.colorIndex = Int16(tracker.colorIndex)
+        updated.color = uiColorMarshalling.hexString(from: tracker.color)
+        updated.emoji = tracker.emoji
+        updated.timetable = tracker.timetable?.map {
+            $0.rawValue
+        }
+        try context.save()
     }
 }
 
@@ -81,4 +122,3 @@ extension TrackerStore: NSFetchedResultsControllerDelegate {
         delegate?.store()
     }
 }
-

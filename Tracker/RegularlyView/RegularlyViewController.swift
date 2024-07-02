@@ -15,9 +15,8 @@ final class RegularlyViewController: UIViewController {
     
     private lazy var header: UILabel = {
         let label = UILabel()
-        label.text = "Расписание"
+        label.text = NSLocalizedString("schedule.title", comment: "")
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .blackDay
         return label
     }()
     
@@ -32,10 +31,22 @@ final class RegularlyViewController: UIViewController {
         button.backgroundColor = .blackDay
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(NSLocalizedString("button.done.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            doneButton.backgroundColor = .white
+            doneButton.setTitleColor(.black, for: .normal)
+        } else {
+            doneButton.backgroundColor = .black
+            doneButton.setTitleColor(.white, for: .normal)
+        }
+    }
     
     //MARK: - Override Methods
     

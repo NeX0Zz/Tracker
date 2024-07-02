@@ -2,6 +2,7 @@ import UIKit
 
 protocol TrackersActions {
     func appendTracker(tracker: Tracker, category: String?)
+    func updateTracker(tracker: Tracker, oldTracker: Tracker?, category: String?)
     func reload()
 }
 
@@ -28,7 +29,7 @@ final class IrregularViewController: UIViewController {
     
     private lazy var header: UILabel = {
         let header = UILabel()
-        header.text = "Новое нерегулярное событие"
+        header.text = NSLocalizedString("irregularEvent.title", comment: "")
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return header
     }()
@@ -51,7 +52,7 @@ final class IrregularViewController: UIViewController {
     
     private let addTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите название трекера"
+        textField.placeholder = NSLocalizedString("createTracker.textField.addTrackerName.placeholder", comment: "")
         textField.backgroundColor = .backgroundDay
         textField.layer.cornerRadius = 16
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
@@ -74,7 +75,7 @@ final class IrregularViewController: UIViewController {
         button.backgroundColor = .grayy
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setTitle("Создать", for: .normal)
+        button.setTitle(NSLocalizedString("button.create.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(createButtonTapped), for: .touchUpInside)
         button.isEnabled = false
         return button
@@ -87,7 +88,7 @@ final class IrregularViewController: UIViewController {
         button.layer.borderColor = UIColor.redd.cgColor
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(NSLocalizedString("button.cancel.title", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -206,7 +207,14 @@ final class IrregularViewController: UIViewController {
               let color = selectedColor,
               let selectedCategory = selectedCategory
         else { return }
-        let newEvent = Tracker(id: UUID(), name: text, color: color, emoji: emoji, timetable: [TrackerViewController().getDate()])
+        let newEvent = Tracker(id: UUID(),
+                               name: text,
+                               color: color,
+                               emoji: emoji,
+                               timetable: [TrackerViewController().getDate()],
+                               pinned: false,
+                               colorIndex: 0
+        )
         trackerViewController?.appendTracker(tracker: newEvent, category: selectedCategory.header)
         addCategoryViewController.viewModel.addTrackerToCategory(to: selectedCategory, tracker: newEvent)
         trackerViewController?.reload()
@@ -261,7 +269,7 @@ extension IrregularViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: irregularCellReuseIdentifier, for: indexPath) as! IrregularViewCell
-            var title = "Категория"
+            var title = NSLocalizedString("createTracker.cell.category.title", comment: "")
             if let selectedCategory = selectedCategory {
                 title += "\n" + selectedCategory.header
             }
@@ -328,7 +336,7 @@ extension IrregularViewController: UICollectionViewDataSource {
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ColorHeaderViewCell.id, for: indexPath) as? ColorHeaderViewCell else {
                 return UICollectionReusableView()
             }
-            header.headerText = "Цвет"
+            header.headerText = NSLocalizedString("createTracker.header.color.title", comment: "")
             return header
         }
         

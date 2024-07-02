@@ -12,7 +12,6 @@ final class HeaderSectionView: UICollectionReusableView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         return label
     }()

@@ -11,7 +11,7 @@ final class CreateCategoryViewController: UIViewController {
     
     private let header: UILabel = {
         let header = UILabel()
-        header.text = "Новая категория"
+        header.text = NSLocalizedString("createTracker.cell.category.title", comment: "")
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         header.textColor = .blackDay
         return header
@@ -19,7 +19,7 @@ final class CreateCategoryViewController: UIViewController {
     
     private let addCategoryName: UITextField = {
         let addCategoryName = UITextField()
-        addCategoryName.placeholder = "Введите название категории"
+        addCategoryName.placeholder = NSLocalizedString("category.enter", comment: "")
         addCategoryName.backgroundColor = .backgroundDay
         addCategoryName.layer.cornerRadius = 16
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
@@ -47,7 +47,7 @@ final class CreateCategoryViewController: UIViewController {
     
     private lazy var doneButton: UIButton = {
         let doneButton = UIButton(type: .custom)
-        doneButton.setTitle("Готово", for: .normal)
+        doneButton.setTitle(NSLocalizedString("button.done.title", comment: ""), for: .normal)
         doneButton.setTitleColor(.whiteDay, for: .normal)
         doneButton.backgroundColor = .grayy
         doneButton.layer.cornerRadius = 16

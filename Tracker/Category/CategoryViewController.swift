@@ -7,15 +7,14 @@ final class CategoryViewController: UIViewController {
     
     private let header: UILabel = {
         let label = UILabel()
-        label.text = "Категория"
+        label.text = NSLocalizedString("category", comment: "")
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .blackDay
         return label
     }()
     
     private let emptyText: UILabel = {
         let label = UILabel()
-        label.text = "Привычки и события можно\nобъединить по смыслу"
+        label.text = NSLocalizedString("category.habits", comment: "")
         label.textColor = .blackDay
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 2
@@ -31,9 +30,7 @@ final class CategoryViewController: UIViewController {
     
     private lazy var addCategory: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("Добавить категорию", for: .normal)
-        button.setTitleColor(.whiteDay, for: .normal)
-        button.backgroundColor = .blackDay
+        button.setTitle(NSLocalizedString("category.add", comment: ""), for: .normal)
         button.layer.cornerRadius = 16
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(addCategoryTapped), for: .touchUpInside)
@@ -48,12 +45,25 @@ final class CategoryViewController: UIViewController {
         return tableView
     }()
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            addCategory.setTitleColor(.black, for: .normal)
+            addCategory.backgroundColor = .white
+        } else {
+            addCategory.setTitleColor(.whiteDay, for: .normal)
+            addCategory.backgroundColor = .blackDay
+        }
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         checkCategories()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         categoriesTableView.delegate = self
         categoriesTableView.dataSource = self

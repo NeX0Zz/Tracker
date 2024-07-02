@@ -16,6 +16,18 @@ final class IrregularViewCell: UITableViewCell {
         return image
     }()
     
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        
+//        if traitCollection.userInterfaceStyle == .dark {
+//            addCategory.setTitleColor(.black, for: .normal)
+//            addCategory.backgroundColor = .white
+//        } else {
+//            addCategory.setTitleColor(.whiteDay, for: .normal)
+//            addCategory.backgroundColor = .blackDay
+//        }
+//    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .backgroundDay

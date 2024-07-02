@@ -1,0 +1,79 @@
+// MARK: - Common
+
+app.title = "Трекеры";
+filter.title = "Фильтры";
+searchBar.placholder = "Поиск";
+
+// MARK: - Button
+
+button.cancel.title = "Отменить";
+button.create.title = "Создать";
+
+// MARK: - Trackers
+
+trackers.emptyData = "Что будем отслеживать?";
+
+// MARK: - Tracker Cell
+
+trackerCell.day.title = "день";
+trackerCell.day.genetive.title = "дня";
+trackerCell.days.title = "дней";
+
+// MARK: - AddTracker
+
+addTracker.title = "Создание трекера";
+addTracker.habbitButton.title = "Привычка";
+addTracker.irregularButton.title = "Нерегулярное событие";
+
+// MARK: - CreateTracker
+
+createTracker.title = "Новая привычка";
+
+createTracker.cell.category.title = "Категория";
+createTracker.textField.addTrackerName.placeholder = "Введите название трекера";
+createTracker.header.color.title = "Цвет";
+
+// MARK: - IrregularEvent
+
+irregularEvent.title = "Новое нерегулярное событие";
+
+// MARK: - Schedule
+
+schedule.title = "Расписание";
+
+// MARK: - WeekDay
+
+weekDay.monday = "Понедельник";
+weekDay.tuesday = "Вторник";
+weekDay.wednesday = "Среда";
+weekDay.thursday = "Четверг";
+weekDay.friday = "Пятница";
+weekDay.saturday = "Суббота";
+weekDay.sunday = "Воскресенье";
+
+// MARK: - Filters
+
+filters.title = "Фильтры";
+
+filters.cell.allTrackers.title = "Все трекеры";
+filters.cell.trackersToday.title = "Трекеры на сегодня";
+filters.cell.completedTrackers.title = "Завершенные";
+filters.cell.uncompletedTrackers.title = "Не завершенные";
+
+// MARK: - Statistic
+
+statistic.title = "Статистика";
+statistic.emptyData = "Анализировать пока нечего";
+
+statistic.cell.bestPeriod.title = "Лучший период";
+statistic.cell.idealDays.title = "Идеальные дни";
+statistic.cell.trackersCompleted.title = "Трекеров завершено";
+statistic.cell.averageValue.title = "Среднее значение";
+
+category.add = "Добавить категорию";
+button.done.title = "Готово";
+
+category.habits = "Привычки и события можно\nобъединить по смыслу";
+
+category = "Категория";
+category.enter = "Введите название категории";
