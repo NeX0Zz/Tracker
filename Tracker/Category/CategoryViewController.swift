@@ -15,7 +15,6 @@ final class CategoryViewController: UIViewController {
     private let emptyText: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("category.habits", comment: "")
-        label.textColor = .blackDay
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 2
         label.textAlignment = .center

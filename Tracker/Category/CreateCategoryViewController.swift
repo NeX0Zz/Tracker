@@ -13,7 +13,6 @@ final class CreateCategoryViewController: UIViewController {
         let header = UILabel()
         header.text = NSLocalizedString("createTracker.cell.category.title", comment: "")
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        header.textColor = .blackDay
         return header
     }()
     
@@ -59,7 +58,7 @@ final class CreateCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .whiteDay
+        view.backgroundColor = .systemBackground
         setup()
         addCategoryName.delegate = self
     }
