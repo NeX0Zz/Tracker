@@ -4,6 +4,7 @@ protocol TrackersActions {
     func appendTracker(tracker: Tracker, category: String?)
     func updateTracker(tracker: Tracker, oldTracker: Tracker?, category: String?)
     func reload()
+    func filterTrackers(forToday: Bool)
 }
 
 final class IrregularViewController: UIViewController {
@@ -218,6 +219,7 @@ final class IrregularViewController: UIViewController {
         trackerViewController?.appendTracker(tracker: newEvent, category: selectedCategory.header)
         addCategoryViewController.viewModel.addTrackerToCategory(to: selectedCategory, tracker: newEvent)
         trackerViewController?.reload()
+        trackerViewController?.filterTrackers(forToday: true)
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

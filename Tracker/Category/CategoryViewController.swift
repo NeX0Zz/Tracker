@@ -55,7 +55,6 @@ final class CategoryViewController: UIViewController {
             addCategory.backgroundColor = .blackDay
         }
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

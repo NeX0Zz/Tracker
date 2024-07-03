@@ -51,6 +51,14 @@ weekDay.friday = "Пятница";
 weekDay.saturday = "Суббота";
 weekDay.sunday = "Воскресенье";
 
+weekDay.m = "Пн";
+weekDay.tue = "Вт";
+weekDay.w = "Ср";
+weekDay.thu = "Чт";
+weekDay.f = "Пт";
+weekDay.sat = "Сб";
+weekDay.su = "Вс";
+
 // MARK: - Filters
 
 filters.title = "Фильтры";
@@ -77,3 +85,6 @@ category.habits = "Привычки и события можно\nобъедин
 
 category = "Категория";
 category.enter = "Введите название категории";
+
+empty.label = "Ничего не найдено";
+first.stub = "Что будем отслеживать?";

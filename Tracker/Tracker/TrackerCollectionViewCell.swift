@@ -83,7 +83,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         let image = completedToday ? (UIImage(named: "Tracker Done")?.withTintColor(trackerView.backgroundColor ?? .white)) : (UIImage(named: "Plus")?.withTintColor(trackerView.backgroundColor ?? .white))
         doneTrackerButton.setImage(image, for: .normal)
         doneTrackerButton.tintColor = trackerView.backgroundColor
-        
         self.pinnedTracker.isHidden = tracker.pinned ? false : true
     }
     
@@ -100,7 +99,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             trackerView.addSubview($0)
         }
-        
         doneTrackerButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

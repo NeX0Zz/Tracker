@@ -51,6 +51,14 @@ weekDay.friday = "Friday";
 weekDay.saturday = "Saturday";
 weekDay.sunday = "Sunday";
 
+weekDay.m = "Mo";
+weekDay.tue = "Tu";
+weekDay.w = "We";
+weekDay.thu = "Thu";
+weekDay.f = "Fr";
+weekDay.sat = "Sa";
+weekDay.su = "Su";
+
 // MARK: - Filters
 
 filters.title = "Filters";
@@ -76,3 +84,6 @@ button.done.title = "Done";
 category.habits = "Habits and events can be understood by meaning";
 category = "Category";
 category.enter = "Enter category name";
+
+empty.label = "Nothing found";
+first.stub = "What we will track?";

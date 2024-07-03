@@ -38,16 +38,16 @@ final class TrackerViewController: UIViewController {
         return filtersButton
     }()
     
-    private lazy var emptyImageView:UIImageView = {
-        let image = UIImage(named: "dizzy")
+    private lazy var emptyImageView: UIImageView = {
+        let image = UIImage(named: "empty")
         let imageView = UIImageView(image: image)
         return imageView
     }()
     
     private lazy var emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "Ничего не "
-        label.font = UIFont(name: "SF Pro", size: 12)
+        label.text = NSLocalizedString("empty.label", comment: "")
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         return label
     }()
     
@@ -73,7 +73,7 @@ final class TrackerViewController: UIViewController {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Что будем отслеживать?"
+        label.text = NSLocalizedString("first.stub", comment: "")
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         return label
     }()
@@ -116,7 +116,6 @@ final class TrackerViewController: UIViewController {
         selectCurrentDay()
         view.backgroundColor = .systemBackground
         setup()
-        showVisibleViews()
         trackerStore.delegate = self
         trackerRecordStore.delegate = self
         trackers = trackerStore.trackers.filter { !$0.pinned }
@@ -125,17 +124,18 @@ final class TrackerViewController: UIViewController {
         categories = categoryViewModel.categories
         categories.insert(TrackerCategory(header: "Закрепленные", trackerMass: pinnedTrackers), at: 0)
         filterVisibleCategories()
+        filterTrackers(forToday: true)
+        visibleStub()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(TrackerCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(HeaderSectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderSectionView.id)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = false
-        
     }
     
     private func setup(){
-        [collectionView, imageView, label,filtersButton].forEach {
+        [collectionView, imageView, label,filtersButton, emptyLabel, emptyImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -148,6 +148,14 @@ final class TrackerViewController: UIViewController {
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            emptyImageView.widthAnchor.constraint(equalToConstant: 80),
+            emptyImageView.heightAnchor.constraint(equalToConstant: 80),
+            emptyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            emptyLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 8),
+            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -158,6 +166,15 @@ final class TrackerViewController: UIViewController {
             filtersButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             filtersButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func visibleStub(){
+        if visibleCategories.isEmpty{
+            label.isHidden = false
+            imageView.isHidden = false
+            emptyLabel.isHidden = true
+            emptyImageView.isHidden = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -203,6 +220,8 @@ final class TrackerViewController: UIViewController {
     @objc private func pickerChanged() {
         selectCurrentDay()
         filterTrackers(forToday: true)
+        showVisibleViews()
+        //  filterVisibleCategories()
     }
     
     @objc private func filtersButtonTapped() {
@@ -218,19 +237,19 @@ final class TrackerViewController: UIViewController {
         self.selectedDate = filterWeekday
     }
     
-    private func filterTrackers(forToday: Bool = false) {
-        filterVisibleCategories(forToday: forToday)
-        showVisibleViews()
-        collectionView.reloadData()
-    }
-    
     private func show(){
         if visibleCategories.isEmpty {
             collectionView.isHidden = true
+            emptyLabel.isHidden = false
+            emptyImageView.isHidden = false
+            label.isHidden = true
+            imageView.isHidden = true
         } else {
             collectionView.isHidden = false
             imageView.isHidden = true
             label.isHidden = true
+            emptyLabel.isHidden = true
+            emptyImageView.isHidden = true
         }
     }
     
@@ -316,6 +335,12 @@ extension TrackerViewController: TrackerStoreDelegate {
 // MARK: - TrackersActions
 
 extension TrackerViewController: TrackersActions {
+    func filterTrackers(forToday: Bool = false) {
+        filterVisibleCategories(forToday: forToday)
+        showVisibleViews()
+        collectionView.reloadData()
+    }
+    
     func appendTracker(tracker: Tracker, category: String?) {
         guard let category = category else { return }
         self.trackerStore.addNewTracker(tracker)
@@ -365,10 +390,11 @@ extension TrackerViewController: TrackersActions {
     }
     
     func showVisibleViews() {
-        
         show()
         if trackerStore.trackers.count == 0 || visibleCategories.isEmpty {
             collectionView.isHidden = true
+            emptyLabel.isHidden = false
+            emptyImageView.isHidden = false
         } else {
             collectionView.isHidden = false
         }
@@ -513,10 +539,12 @@ extension TrackerViewController: UICollectionViewDelegate {
             if tracker.pinned {
                 pinAction = UIAction(title: "Открепить", handler: { [weak self] _ in
                     try? self?.trackerStore.pinTracker(tracker, value: false)
+                    self?.filterTrackers(forToday: true)
                 })
             } else {
                 pinAction = UIAction(title: "Закрепить", handler: { [weak self] _ in
                     try? self?.trackerStore.pinTracker(tracker, value: true)
+                    self?.filterTrackers(forToday: true)
                 })
             }
             
@@ -549,6 +577,7 @@ extension TrackerViewController: UICollectionViewDelegate {
                     try? self?.trackerStore.deleteTracker(tracker)
                     self?.uncompleteTracker(id: tracker.id, at: indexPath)
                     self?.showVisibleViews()
+                    self?.filterTrackers(forToday: true)
                 }
                 alertController.addAction(deleteConfirmationAction)
                 
@@ -575,11 +604,20 @@ extension TrackerViewController: UISearchBarDelegate {
            let text = searchBar.text {
             self.filterText = text
             filterTrackers()
+            filterVisibleCategories(forToday: true)
+            
+            if textField.text?.isEmpty ?? true {
+                showVisibleViews()
+                return
+            }
+            
+            showSearchViews()
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filterText = searchBar.text
-        filterTrackers()
+        filterVisibleCategories(forToday: true)
+        showVisibleViews()
     }
 }

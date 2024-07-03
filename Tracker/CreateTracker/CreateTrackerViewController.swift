@@ -32,11 +32,11 @@ final class CreateTrackerViewController: UIViewController {
     private let addCategoryViewController = CategoryViewController()
     var selectedDays: [WeekDay] = []
     private let colors: [UIColor] = [.ypColorSelection1, .ypColorSelection2, .ypColorSelection3,
-        .ypColorSelection4, .ypColorSelection5, .ypColorSelection6,
-        .ypColorSelection7, .ypColorSelection8, .ypColorSelection9,
-        .ypColorSelection10, .ypColorSelection11, .ypColorSelection12,
-        .ypColorSelection13, .ypColorSelection14, .ypColorSelection15,
-        .ypColorSelection16, .ypColorSelection17, .ypColorSelection18]
+                                     .ypColorSelection4, .ypColorSelection5, .ypColorSelection6,
+                                     .ypColorSelection7, .ypColorSelection8, .ypColorSelection9,
+                                     .ypColorSelection10, .ypColorSelection11, .ypColorSelection12,
+                                     .ypColorSelection13, .ypColorSelection14, .ypColorSelection15,
+                                     .ypColorSelection16, .ypColorSelection17, .ypColorSelection18]
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -224,6 +224,7 @@ final class CreateTrackerViewController: UIViewController {
         selectedEmoji = tracker.emoji
         selectedColorIndex = tracker.colorIndex
         dayCount.text = String.localizedStringWithFormat(NSLocalizedString("numberOfDays", comment: ""), completed)
+        
     }
     
     // MARK: - Priavte Methods
@@ -246,7 +247,7 @@ final class CreateTrackerViewController: UIViewController {
               let emoji = selectedEmoji,
               let color = selectedColor,
               let selectedCategory = selectedCategory,
-                let colorIndex = selectedColorIndex
+              let colorIndex = selectedColorIndex
         else { return }
         let newTracker = Tracker(id: UUID(),
                                  name: text,
@@ -263,6 +264,7 @@ final class CreateTrackerViewController: UIViewController {
             viewModel.addTrackerToCategory(to: self.selectedCategory, tracker: newTracker)
         }
         trackerViewController?.reload()
+        trackerViewController?.filterTrackers(forToday: true)
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }
@@ -392,8 +394,8 @@ extension CreateTrackerViewController: UICollectionViewDataSource {
                     cell.backgroundColor = .lightGrayy
                 }
             }
-            
             return cell
+            
         } else if collectionView == colorCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorsCollectionViewCell", for: indexPath) as? ColorsCollectionViewCell else {
                 return UICollectionViewCell()
@@ -469,10 +471,13 @@ extension CreateTrackerViewController: UICollectionViewDelegateFlowLayout {
 extension CreateTrackerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == emojiCollectionView {
+            collectionView.visibleCells.forEach {
+                $0.backgroundColor = .white
+            }
             let cell = collectionView.cellForItem(at: indexPath) as? EmojiViewCollectionCell
             cell?.backgroundColor = .lightGrayy
-            
-            selectedEmoji = cell?.emoji.text} else
+            selectedEmoji = cell?.emoji.text
+        } else
         if collectionView == colorCollectionView {
             collectionView.visibleCells.forEach {
                 $0.layer.borderWidth = 0
@@ -490,6 +495,7 @@ extension CreateTrackerViewController: UICollectionViewDelegate {
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? EmojiViewCollectionCell
             cell?.backgroundColor = .white
+            cell?.layer.borderWidth = 0
         } else if collectionView == colorCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? ColorsCollectionViewCell
             cell?.layer.borderWidth = 0

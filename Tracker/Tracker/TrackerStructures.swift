@@ -52,19 +52,19 @@ enum WeekDay: Int, CaseIterable, Codable {
     var shortDaysName: String {
         switch self {
         case .monday:
-            return "Пн"
+            return NSLocalizedString("weekDay.m", comment: "")
         case .tuesday:
-            return "Вт"
+            return NSLocalizedString("weekDay.tue", comment: "")
         case .wednesday:
-            return "Ср"
+            return NSLocalizedString("weekDay.w", comment: "")
         case .thursday:
-            return "Чт"
+            return NSLocalizedString("weekDay.thu", comment: "")
         case .friday:
-            return "Пт"
+            return NSLocalizedString("weekDay.f", comment: "")
         case .saturday:
-            return "Сб"
+            return NSLocalizedString("weekDay.sat", comment: "")
         case .sunday:
-            return "Вс"
+            return NSLocalizedString("weekDay.su", comment: "")
         }
     }
 }
