@@ -59,7 +59,6 @@ final class TrackerViewController: UIViewController {
         return search
     }()
     
-    
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.date = Date()
@@ -220,8 +219,7 @@ final class TrackerViewController: UIViewController {
     @objc private func pickerChanged() {
         selectCurrentDay()
         filterTrackers(forToday: true)
-        showVisibleViews()
-        //  filterVisibleCategories()
+        visibleStub()
     }
     
     @objc private func filtersButtonTapped() {
@@ -610,7 +608,6 @@ extension TrackerViewController: UISearchBarDelegate {
                 showVisibleViews()
                 return
             }
-            
             showSearchViews()
         }
     }
@@ -619,5 +616,10 @@ extension TrackerViewController: UISearchBarDelegate {
         self.filterText = searchBar.text
         filterVisibleCategories(forToday: true)
         showVisibleViews()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.filterText = nil
+        filterTrackers()
     }
 }
