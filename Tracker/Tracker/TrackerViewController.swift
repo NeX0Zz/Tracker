@@ -620,6 +620,6 @@ extension TrackerViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.filterText = nil
-        filterTrackers()
+        filterTrackers(forToday: true)
     }
 }
