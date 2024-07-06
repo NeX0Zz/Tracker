@@ -35,6 +35,12 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let pinnedTracker: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Pin")
+        return imageView
+    }()
+    
     private lazy var basicLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -76,6 +82,8 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         
         let image = completedToday ? (UIImage(named: "Tracker Done")?.withTintColor(trackerView.backgroundColor ?? .white)) : (UIImage(named: "Plus")?.withTintColor(trackerView.backgroundColor ?? .white))
         doneTrackerButton.setImage(image, for: .normal)
+        doneTrackerButton.tintColor = trackerView.backgroundColor
+        self.pinnedTracker.isHidden = tracker.pinned ? false : true
     }
     
     //MARK: - Override Methods
@@ -87,11 +95,10 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(doneTrackerButton)
         trackerView.addSubview(emojiBackView)
         
-        [basicLabel,trackerEmoji,trackersDaysAmount].forEach {
+        [basicLabel,trackerEmoji,trackersDaysAmount,pinnedTracker].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             trackerView.addSubview($0)
         }
-        
         doneTrackerButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -104,6 +111,9 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             doneTrackerButton.centerYAnchor.constraint(equalTo: trackersDaysAmount.centerYAnchor),
             doneTrackerButton.trailingAnchor.constraint(equalTo: trackerView.trailingAnchor, constant: -12),
             
+            pinnedTracker.centerYAnchor.constraint(equalTo: trackerEmoji.centerYAnchor),
+            pinnedTracker.trailingAnchor.constraint(equalTo: trackerView.trailingAnchor, constant: -12),
+            
             basicLabel.leadingAnchor.constraint(equalTo: trackerView.leadingAnchor, constant: 12),
             basicLabel.bottomAnchor.constraint(equalTo: trackerView.bottomAnchor, constant: -12),
         ])
@@ -114,13 +124,16 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     private func formatCompletedDays(_ completedDays: Int) -> String {
         let lastDigit = completedDays % 10
         let lastTwoDigits = completedDays % 100
-        if lastTwoDigits >= 11 && lastTwoDigits <= 19 { return "\(completedDays) дней" }
+        if lastTwoDigits >= 11 && lastTwoDigits <= 19 {
+            return "\(completedDays) \(NSLocalizedString("trackerCell.day.title", comment: ""))"
+        }
         switch lastDigit {
-        case 1: return "\(completedDays) день"
-        case 2, 3, 4: return "\(completedDays) дня"
-        default: return "\(completedDays) дней"
+        case 1: return "\(completedDays) \(NSLocalizedString("trackerCell.day.title", comment: ""))"
+        case 2, 3, 4: return "\(completedDays) \(NSLocalizedString("trackerCell.day.genetive.title", comment: ""))"
+        default: return "\(completedDays) \(NSLocalizedString("trackerCell.days.title", comment: ""))"
         }
     }
+    
     
     @objc private func completedTracker() {
         guard let trackerId = trackerId, let indexPath = indexPath else { assertionFailure("No Id"); return }
@@ -129,5 +142,8 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         } else {
             delegate?.completeTracker(id: trackerId, at: indexPath)
         }
+    }
+    func update(with pinned: UIImage) {
+        pinnedTracker.image = pinned
     }
 }

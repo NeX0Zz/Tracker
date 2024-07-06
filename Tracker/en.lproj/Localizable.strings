@@ -1,0 +1,89 @@
+// MARK: - Common
+
+app.title = "Trackers";
+filter.title = "Filters";
+searchBar.placholder = "Search";
+
+// MARK: - Button
+
+button.cancel.title = "Cancel";
+button.create.title = "Create";
+
+// MARK: - Trackers
+
+trackers.emptyData = "What should we track?";
+
+// MARK: - Tracker Cell
+
+trackerCell.day.title = "day";
+trackerCell.day.genetive.title = "days";
+trackerCell.days.title = "days";
+
+// MARK: - AddTracker
+
+addTracker.title = "Create tracker";
+addTracker.habbitButton.title = "Habbit";
+addTracker.irregularButton.title = "Irregular event";
+
+// MARK: - CreateTracker
+
+createTracker.title = "New habbit";
+
+createTracker.textField.addTrackerName.placeholder = "Input tracker's title";
+createTracker.cell.category.title = "Сategory";
+createTracker.header.color.title = "Color";
+
+// MARK: - IrregularEvent
+
+irregularEvent.title = "New irregular event";
+
+// MARK: - Schedule
+
+schedule.title = "Schedule";
+
+// MARK: - WeekDay
+
+weekDay.monday = "Monday";
+weekDay.tuesday = "Tuesday";
+weekDay.wednesday = "Wednesday";
+weekDay.thursday = "Thursday";
+weekDay.friday = "Friday";
+weekDay.saturday = "Saturday";
+weekDay.sunday = "Sunday";
+
+weekDay.m = "Mo";
+weekDay.tue = "Tu";
+weekDay.w = "We";
+weekDay.thu = "Thu";
+weekDay.f = "Fr";
+weekDay.sat = "Sa";
+weekDay.su = "Su";
+
+// MARK: - Filters
+
+filters.title = "Filters";
+
+filters.cell.allTrackers.title = "All trackers";
+filters.cell.trackersToday.title = "Today's trackers";
+filters.cell.completedTrackers.title = "Completed";
+filters.cell.uncompletedTrackers.title = "Uncompleted";
+
+// MARK: - Statistic
+
+statistic.title = "Statistic";
+statistic.emptyData = "Nothing to analyse";
+
+statistic.cell.bestPeriod.title = "Best period";
+statistic.cell.idealDays.title = "Ideal days";
+statistic.cell.trackersCompleted.title = "Trackers completed";
+statistic.cell.averageValue.title = "Average value";
+
+category.add = "Add category";
+button.done.title = "Done";
+
+category.habits = "Habits and events can be understood by meaning";
+category = "Category";
+category.enter = "Enter category name";
+
+empty.label = "Nothing found";
+first.stub = "What we will track?";

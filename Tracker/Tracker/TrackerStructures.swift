@@ -6,11 +6,13 @@ struct TrackerCategory {
 }
 
 struct Tracker {
-    let id = UUID()
+    let id: UUID
     let name: String
     let color: UIColor
     let emoji: String
     let timetable: [WeekDay]?
+    let pinned: Bool
+    let colorIndex: Int
 }
 
 struct TrackerRecord {
@@ -18,7 +20,7 @@ struct TrackerRecord {
     let date: Date
 }
 
-enum WeekDay: Int, CaseIterable {
+enum WeekDay: Int, CaseIterable, Codable {
     
     case monday = 2
     case tuesday = 3
@@ -31,19 +33,38 @@ enum WeekDay: Int, CaseIterable {
     var name: String {
         switch self {
         case .monday:
-            return "Понедельник"
+            return NSLocalizedString("weekDay.monday", comment: "")
         case .tuesday:
-            return "Вторник"
+            return NSLocalizedString("weekDay.tuesday", comment: "")
         case .wednesday:
-            return "Среда"
+            return NSLocalizedString("weekDay.wednesday", comment: "")
         case .thursday:
-            return "Четверг"
+            return NSLocalizedString("weekDay.thursday", comment: "")
         case .friday:
-            return "Пятница"
+            return NSLocalizedString("weekDay.friday", comment: "")
         case .saturday:
-            return "Суббота"
+            return NSLocalizedString("weekDay.saturday", comment: "")
         case .sunday:
-            return "Воскресенье"
+            return NSLocalizedString("weekDay.sunday", comment: "")
+        }
+    }
+    
+    var shortDaysName: String {
+        switch self {
+        case .monday:
+            return NSLocalizedString("weekDay.m", comment: "")
+        case .tuesday:
+            return NSLocalizedString("weekDay.tue", comment: "")
+        case .wednesday:
+            return NSLocalizedString("weekDay.w", comment: "")
+        case .thursday:
+            return NSLocalizedString("weekDay.thu", comment: "")
+        case .friday:
+            return NSLocalizedString("weekDay.f", comment: "")
+        case .saturday:
+            return NSLocalizedString("weekDay.sat", comment: "")
+        case .sunday:
+            return NSLocalizedString("weekDay.su", comment: "")
         }
     }
 }

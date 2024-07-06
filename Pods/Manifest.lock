@@ -1,0 +1,25 @@
+PODS:
+  - SnapshotTesting (1.9.0)
+  - YandexMobileMetrica/Dynamic (4.5.0):
+    - YandexMobileMetrica/Dynamic/Core (= 4.5.0)
+    - YandexMobileMetrica/Dynamic/Crashes (= 4.5.0)
+  - YandexMobileMetrica/Dynamic/Core (4.5.0)
+  - YandexMobileMetrica/Dynamic/Crashes (4.5.0):
+    - YandexMobileMetrica/Dynamic/Core
+
+DEPENDENCIES:
+  - SnapshotTesting
+  - YandexMobileMetrica/Dynamic (= 4.5.0)
+
+SPEC REPOS:
+  trunk:
+    - SnapshotTesting
+    - YandexMobileMetrica
+
+SPEC CHECKSUMS:
+  SnapshotTesting: 6141c48b6aa76ead61431ca665c14ab9a066c53b
+  YandexMobileMetrica: 7dafc7d224077d4443ab3a587b82b24e9b6cc9c7
+
+PODFILE CHECKSUM: 16b5c5c2171c7d8d5889c80c691da5efd9a98b08
+
+COCOAPODS: 1.15.2
